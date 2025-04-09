@@ -13,3 +13,6 @@ async def vectorize_documents(files: List[UploadFile], vector_store_dir: str = "
 @mcp.tool()
 async def query_documents_tool(query: str, vector_store_dir: str = "vector_store", k: int = 2):
     return await query_documents(query, vector_store_dir, k)
+
+if __name__ == "__main__":
+    mcp.run()

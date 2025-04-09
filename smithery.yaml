@@ -1,5 +1,6 @@
 name: RAG Document Tools
 description: LangChain-based document vectorization and search
+entry: mcp_server.py
 startCommand:
   type: stdio
   command: ["python", "mcp_server.py"]
