@@ -2,5 +2,5 @@
   "name": "RAG Document Tools",
   "description": "LangChain 기반 문서 벡터화 및 검색",
   "tools": ["vectorize_documents", "query_documents_tool"],
-  "command": "python -m uvicorn mcp_server:app --host 0.0.0.0 --port 8000"
+  "command": "python mcp_server.py"
 }
