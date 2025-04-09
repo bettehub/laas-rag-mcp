@@ -6,7 +6,7 @@ from query_processor import query_documents
 import uvicorn
 
 # MCP 서버용 FastAPI 앱 생성
-app = FastAPI(title="RAG MCP Tool Server")
+app = FastAPI(title="RAG Document Tools")
 
 # FastMCP 인스턴스 등록
 mcp = FastMCP("rag-mcp", app=app)
