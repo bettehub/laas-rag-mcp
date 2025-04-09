@@ -1,0 +1,5 @@
+name: RAG Document Tools
+description: LangChain 기반 문서 벡터화 및 검색
+entry: mcp_server.py
+startCommand:
+  type: stdio

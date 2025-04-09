@@ -19,7 +19,7 @@ Deprecated==1.2.18
 distro==1.9.0
 durationpy==0.9
 fastapi==0.115.12
-fastmcp==0.4.1
+fastmcp @ git+https://github.com/jlowin/fastmcp.git@654397bf0aa75bdddbbedd8c5bec440492e1147b
 filelock==3.18.0
 flatbuffers==25.2.10
 frozenlist==1.5.0
