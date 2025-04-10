@@ -6,6 +6,7 @@ from langchain.prompts import PromptTemplate
 import os
 from typing import List
 from langchain.schema import Document
+from langchain.chains import ConversationalRetrievalChain
 
 # 기본 벡터 스토어 디렉토리 설정
 DEFAULT_VECTOR_STORE_DIR = "vector_store_xlsx"
@@ -31,16 +32,36 @@ FINANCIAL_PROMPT_TEMPLATE = PromptTemplate(
    - 헤더와 데이터를 구분하는 구분선 추가
    - 숫자는 천단위 구분자(,) 사용
    - 단위는 각 열 헤더에 명시
+6. 데이터의 추세나 패턴을 보여주기 위해 ASCII 차트를 생성하세요.
+   - 차트는 +, -, |, * 등의 문자를 사용하여 작성
+   - x축과 y축을 명확히 표시
+   - 데이터 포인트는 *로 표시
+   - 추세선은 -로 표시
 
 예시 표 형식:
 | 기간 | 영업이익(백만원) | 전년대비(%) |
 |------|-----------------|-------------|
 | 2023년 1분기 | 1,234,567 | 15.5 |
 | 2023년 2분기 | 1,345,678 | 9.0 |
+
+예시 ASCII 차트:
+    영업이익 추이 (백만원)
+    |
+1,400,000 |          *
+    |         *
+1,300,000 |        *
+    |       *
+1,200,000 |      *
+    |     *
+1,100,000 |    *
+    |   *
+1,000,000 |  *
+    |________________
+     1Q   2Q   3Q   4Q
 """
 )
 
-async def query_documents(query: str, vector_store_dir: str = DEFAULT_VECTOR_STORE_DIR, k: int = 10):
+async def query_documents(query: str, vector_store_dir: str = DEFAULT_VECTOR_STORE_DIR, k: int = 5):
     """
     벡터 스토어에서 관련 문서를 검색하고 LLM을 통해 응답 생성
     """
@@ -91,9 +112,15 @@ async def query_documents(query: str, vector_store_dir: str = DEFAULT_VECTOR_STO
             "sheet": sheet
         })
     
+    # 응답 형식 수정
+    response = {
+        "answer": result['result'],
+        "source_documents": result.get("source_documents", [])
+    }
+    
     return {
         "query": query,
-        "answer": result["result"],
+        "answer": response["answer"],
         "results": results,
         "vector_store_dir": vector_store_dir
     } 

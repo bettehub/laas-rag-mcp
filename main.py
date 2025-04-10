@@ -40,7 +40,7 @@ async def upload_documents(
         return {"error": str(e)}
 
 @app.post("/query")
-async def query_endpoint(query: str, vector_store_dir: str = DEFAULT_VECTOR_STORE_DIR, k: int = 10):
+async def query_endpoint(query: str, vector_store_dir: str = DEFAULT_VECTOR_STORE_DIR, k: int = 5):
     """
     문서에 대한 질문을 처리하고 응답을 반환합니다.
     
